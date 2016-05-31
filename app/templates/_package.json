@@ -1,0 +1,10 @@
+{
+  "name": "displaytemplates",
+  "version": "0.1.0",
+  "description": "",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.6",
+    "gulp-spsync": "github:estruyf/gulp-spsync"
+  }
+}
