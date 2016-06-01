@@ -1,6 +1,6 @@
 {
   "name": "generator-displaytemplates",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This is a Yeoman generator to speed up your display templates development process",
   "author": "Elio Struyf",
   "repository": {
