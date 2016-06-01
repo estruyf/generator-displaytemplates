@@ -17,6 +17,24 @@ module.exports = generators.Base.extend({
             required: false
         });
         
+        this.option('client_id', {
+            type: String,
+            desc: 'SharePoint add-in client id',
+            required: true
+        });
+        
+        this.option('client_secret', {
+            type: String,
+            desc: 'SharePoint add-in secret',
+            required: true
+        });
+        
+        this.option('site', {
+            type: String,
+            desc: 'SharePoint site URL',
+            required: true
+        });
+        
         this.option('skip-install', {
             type: Boolean,
             required: false,
@@ -44,6 +62,24 @@ module.exports = generators.Base.extend({
                 message: 'Project name',
                 default: 'Search Display Templates',
                 when: this.options.name === undefined
+            },
+            {
+                name: 'client_id',
+                message: 'What is your SharePoint add-in client id?',
+                default: null, //00000000-0000-0000-0000-000000000000
+                when: this.options.client_id === undefined
+            },
+            {
+                name: 'client_secret',
+                message: 'What is your SharePoint add-in secret?',
+                default: null,
+                when: this.options.client_secret === undefined
+            },
+            {
+                name: 'site',
+                message: 'What is the SharePoint site URL?',
+                default: null,
+                when: this.options.site === undefined
             },
             {
                 name: 'skip-install',
@@ -89,6 +125,28 @@ module.exports = generators.Base.extend({
                             this.destinationPath('package.json')); 
             this.fs.copyTpl(this.templatePath('settings.js'),
                             this.destinationPath('settings.js')); 
+                            
+            // Create and update the config file with the required properties
+            var pathToConfigJson = this.templatePath('config.json');
+            if (this.fs.exists(pathToConfigJson)) {
+                // Load config.json file
+                var configJson = this.fs.readJSON(pathToConfigJson, 'utf8');
+                
+                // Set the required properties
+                if (!configJson['client_id']) {
+                    configJson['client_id'] = this.genConfig.client_id;
+                }
+                if (!configJson['client_secret']) {
+                    configJson['client_secret'] = this.genConfig.client_secret;
+                }
+                if (!configJson['site']) {
+                    configJson['site'] = this.genConfig.site;
+                }
+
+                // Overwrite the existing config.json
+                this.log(chalk.green('Adding your configuration to the config.json file'));
+                this.fs.writeJSON(this.destinationPath('config.json'), configJson);
+            }
                             
             // Create sample files
             this.fs.copyTpl(this.templatePath('sample/control_minimal.js'),
