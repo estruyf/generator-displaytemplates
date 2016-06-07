@@ -1,0 +1,12 @@
+{
+  "name": "displaytemplates",
+  "version": "0.1.0",
+  "description": "Developing display templates via the gulp-spsync-creds plugin",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-spsync-creds": "github:estruyf/gulp-spsync-creds"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
