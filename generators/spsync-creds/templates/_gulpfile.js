@@ -58,7 +58,7 @@ gulp.task("watch", function(){
     watch task: this task can be used during the development process, it automatically uploads the files when changed and sets metadata
  */
 gulp.task("watch-metadata", function(){
-    var crntSettings = settings.getWatch();
+    var crntSettings = settings.get();
     crntSettings["update_metadata"] = true;
 
     gulp.watch(folder, function (event) {
