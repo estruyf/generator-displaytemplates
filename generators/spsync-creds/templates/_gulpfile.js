@@ -1,6 +1,6 @@
 var gulp = require('gulp')
 var plumber = require("gulp-plumber");
-var sp = require('gulp-spsync-creds');
+var sp = require('gulp-spsync-creds').sync;
 var settings = require('./settings');
 var onError = function (err) {
     this.emit("end");
