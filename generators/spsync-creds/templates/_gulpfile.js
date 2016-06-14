@@ -44,13 +44,16 @@ gulp.task('publish', function() {
 /*
     watch task: this task can be used during the development process, it automatically uploads the files when changed
  */
-gulp.task("watch", function(){
+gulp.task("watch", function() {
+    var crntSettings = settings.get();
+    crntSettings["cache"] = true;
+
     gulp.watch(folder, function (event) {
         gulp.src(event.path, { base: mainFld })
             .pipe(plumber({
                 errorHandler: onError
             }))
-            .pipe(sp(settings.get()));
+            .pipe(sp(crntSettings));
     });
 });
 
@@ -60,6 +63,7 @@ gulp.task("watch", function(){
 gulp.task("watch-metadata", function(){
     var crntSettings = settings.get();
     crntSettings["update_metadata"] = true;
+    crntSettings["cache"] = true;
 
     gulp.watch(folder, function (event) {
         gulp.src(event.path, { base: mainFld })
