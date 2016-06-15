@@ -4,8 +4,8 @@
   "description": "Developing display templates via the gulp-spsync-creds plugin",
   "dependencies": {
     "gulp": "^3.9.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-spsync-creds": "github:estruyf/gulp-spsync-creds"
+    "gulp-spsync-creds": "^2.1.1",
+    "gulp-plumber": "^1.1.0"
   },
   "license": "UNLICENSED",
   "private": true
