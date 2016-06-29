@@ -3,6 +3,9 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 var extend = require('deep-extend');
 var mkdirp = require('mkdirp');
+var inquirer = require('inquirer');
+
+var package = require('../../package.json');
 
 module.exports = generators.Base.extend({
     // The name constructor is important here
@@ -46,7 +49,7 @@ module.exports = generators.Base.extend({
     initializing: function(){
         this.log(yosay('Welcome to the\n' +
             chalk.yellow('Display Templates') +
-        ' generator.'+
+        ' generator version: ' + package.version + '.' +
         ' Let\'s create a new project.'));
 
         // generator configuration
@@ -61,29 +64,34 @@ module.exports = generators.Base.extend({
                     name: 'name',
                     message: 'Project name',
                     default: 'Search Display Templates',
-                    when: this.options.name === undefined
+                    when: this.options.name === undefined,
+                    type: 'input'
                 },
                 {
                     name: 'site',
                     message: 'What is the SharePoint site URL?',
                     default: null,
-                    when: this.options.site === undefined
+                    when: this.options.site === undefined,
+                    type: 'input'
                 },
                 {
                     name: 'sample',
                     message: 'Do you want the sample files?',
-                    default: true
+                    default: true,
+                    type: 'confirm'
                 },
                 {
                     name: 'skip-install',
                     message: 'Skip NPM install at the end?',
                     default: false,
-                    when: this.options.name === undefined
+                    when: this.options.name === undefined,
+                    type: 'confirm'
                 },
                 {
                     name: 'plugin',
                     message: 'Upload files via SharePoint add-in or client credentials?',
                     type: 'list',
+                    default: 'spsync-creds',
                     choices: [
                         {
                             name: 'SharePoint Add-in (SP Online only)',
@@ -96,8 +104,8 @@ module.exports = generators.Base.extend({
                     ]
                 }
             ];
-            
-            this.prompt(prompts, function(responses){
+
+            inquirer.prompt(prompts).then(function(responses) {
                 this.genConfig = extend(this.genConfig, this.options);
                 this.genConfig = extend(this.genConfig, responses);
                 done();
@@ -143,6 +151,7 @@ module.exports = generators.Base.extend({
                     this.composeWith('displaytemplates:spsync-creds', {
                         options: {
                             name: this.genConfig.name,
+                            projectInternalName: this.genConfig.projectInternalName,
                             site: this.genConfig.site
                         }
                     }, {

@@ -1,6 +1,6 @@
 var gulp = require('gulp')
 var plumber = require("gulp-plumber");
-var sp = require('gulp-spsync-creds').sync;
+var sp = require('gulp-spsync-creds');
 var settings = require('./settings');
 var onError = function (err) {
     this.emit("end");
@@ -14,7 +14,7 @@ var folder = './src/**/*.*';
  */
 gulp.task('default', function() {   
     return gulp.src(folder).pipe(
-        sp(settings.get())
+        sp.sync(settings.get())
     );
 });
 
@@ -26,7 +26,7 @@ gulp.task('set-metadata', function() {
     crntSettings["update_metadata"] = true;
     
     return gulp.src(folder)
-               .pipe(sp(crntSettings));
+               .pipe(sp.sync(crntSettings));
 });
 
 /*
@@ -38,7 +38,7 @@ gulp.task('publish', function() {
     crntSettings["publish"] = true;
     
     return gulp.src(folder)
-               .pipe(sp(crntSettings));
+               .pipe(sp.sync(crntSettings));
 });
 
 /*
@@ -53,7 +53,7 @@ gulp.task("watch", function() {
             .pipe(plumber({
                 errorHandler: onError
             }))
-            .pipe(sp(crntSettings));
+            .pipe(sp.sync(crntSettings));
     });
 });
 
@@ -70,6 +70,15 @@ gulp.task("watch-metadata", function(){
             .pipe(plumber({
                 errorHandler: onError
             }))
-            .pipe(sp(crntSettings));
+            .pipe(sp.sync(crntSettings));
     });
+});
+
+
+/*
+    download task: download the files for the specified folder
+ */
+gulp.task('download', function() {
+    var crntSettings = settings.download();
+    return sp.download(crntSettings).pipe(gulp.dest("src/" + crntSettings.startFolder));
 });

@@ -36,6 +36,12 @@ module.exports = generators.Base.extend({
             required: true
         });
         
+        this.option('download', {
+            type: Boolean,
+            desc: 'Download files after install?',
+            required: true
+        });
+        
         this.genConfig = {};
     },
     
@@ -57,6 +63,12 @@ module.exports = generators.Base.extend({
                     default: null,
                     when: this.options.password === undefined,
                     type: 'password'
+                },
+                {
+                    name: 'download',
+                    message: 'Download files after installation?',
+                    default: true,
+                    type: 'confirm'
                 }
             ];
 
@@ -96,6 +108,9 @@ module.exports = generators.Base.extend({
                 if (!configJson['site']) {
                     configJson['site'] = this.genConfig.site;
                 }
+                if (!configJson['location']) {
+                    configJson['location'] = "_catalogs/masterpage/" + this.genConfig.projectInternalName;
+                }
 
                 // Overwrite the existing config.json
                 this.log(chalk.green('Adding your configuration to the config.json file'));
@@ -103,6 +118,13 @@ module.exports = generators.Base.extend({
             }
             
             done();
+        }
+    },
+    
+    install: function() {
+        // Run npm installer?
+        if (this.genConfig['download']) {
+            this.spawnCommand('gulp', ['download']);
         }
     }
 });
