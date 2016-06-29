@@ -116,3 +116,8 @@ $ gulp watch
 ```
 $ gulp watch-metadata
 ```
+
+**gulp download**: download all the files of the folder location "_catalogs/masterpage/your-project-name".
+```
+$ gulp publish
+```
