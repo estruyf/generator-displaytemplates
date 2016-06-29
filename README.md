@@ -37,6 +37,7 @@ Depending on the type of upload mechanism you choose, the next questions will va
 **Client credentials questions**
 - **Username**
 - **Password**
+- **Download files after installation?** (default: true): automatically downloads the files from SharePoint "_catalogs/masterpage/your-project-name" after the generator ran.
 
 # Configuration
 The generator has two sub-generators:
@@ -62,6 +63,7 @@ This generator requires the following things in order to run your gulp tasks aft
 - **Username**: this is the username for accessing your site;
 - **Password**: this is the password for the given username;
 - **site**: this is the site URL to where you want to upload the files.
+- **startFolder**: this is only required for downloading files.
 
 # Development process
 Once you completed all previous steps, you can start your development process.
@@ -84,7 +86,7 @@ Create your display templates in the following folder:
 │               └── Create all your files in this folder
 ```
 
-## Upload, watch, publish
+## Upload, download, watch, publish
 The following Gulp tasks are available:
 
 **gulp**: this task uploads all the display templates to the masterpage gallery
