@@ -34,7 +34,8 @@ var settings = (function () {
                 username: config.username,
                 password: config.password,
                 site: config.site,
-                startFolder: config.location
+                startFolder: config.location,
+                associatedHtml: false
             }
         }       
     } 
