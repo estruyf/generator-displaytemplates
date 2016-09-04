@@ -1,6 +1,6 @@
 {
   "name": "generator-displaytemplates",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "This is a Yeoman generator to speed up your display templates development process",
   "author": "Elio Struyf",
   "repository": {
@@ -19,11 +19,11 @@
   ],
   "dependencies": {
     "chalk": "^1.1.3",
-    "deep-extend": "^0.4.0",
-    "inquirer": "^1.0.3",
+    "deep-extend": "^0.4.1",
+    "inquirer": "^1.1.3",
     "mkdirp": "^0.5.1",
-    "yeoman-generator": "^0.20.3",
-    "yosay": "^1.1.1"
+    "yeoman-generator": "^0.24.1",
+    "yosay": "^1.2.0"
   },
   "licenses": [
     {

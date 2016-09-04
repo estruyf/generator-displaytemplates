@@ -4,8 +4,8 @@
   "description": "Developing display templates via the gulp-spsync plugin",
   "dependencies": {
     "gulp": "^3.9.1",
-    "gulp-watch": "^4.3.6",
-    "gulp-spsync": "github:estruyf/gulp-spsync"
+    "gulp-watch": "^4.3.9",
+    "gulp-spsync": "^1.5.3"
   },
   "license": "UNLICENSED",
   "private": true
