@@ -4,8 +4,9 @@ var chalk = require('chalk');
 var extend = require('deep-extend');
 var mkdirp = require('mkdirp');
 var inquirer = require('inquirer');
+var updateNotifier = require('update-notifier');
 
-var package = require('../../package.json');
+var pkg = require('../../package.json');
 
 module.exports = generators.Base.extend({
     // The name constructor is important here
@@ -46,10 +47,13 @@ module.exports = generators.Base.extend({
         });
     },
     
-    initializing: function(){
+    initializing: function() {
+        var notifier = updateNotifier({pkg});
+        notifier.notify({defer: false});
+
         this.log(yosay('Welcome to the\n' +
             chalk.yellow('Display Templates') +
-        ' generator version: ' + package.version + '.' +
+        ' generator version: ' + pkg.version + '.' +
         ' Let\'s create a new project.'));
 
         // generator configuration
