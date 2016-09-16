@@ -35,6 +35,13 @@ module.exports = generators.Base.extend({
             required: true
         });
         
+        this.option('skipInstall', {
+            type: Boolean,
+            required: false,
+            defaults: false,
+            desc: 'Skip running NPM package manager at the end.'
+        });
+        
         this.genConfig = {};
     },
     
@@ -93,6 +100,9 @@ module.exports = generators.Base.extend({
                 if (!configJson['site']) {
                     configJson['site'] = this.genConfig.site;
                 }
+                if (!configJson['skipInstall']) {
+                    configJson['skipInstall'] = this.genConfig.skipInstall;
+                }
 
                 // Overwrite the existing config.json
                 this.log(chalk.green('Adding your configuration to the config.json file'));
@@ -100,6 +110,13 @@ module.exports = generators.Base.extend({
             }
             
             done();
+        }
+    },
+    
+    install: function() {
+        // Run npm installer?
+        if (!this.genConfig['skipInstall']) {
+            this.npmInstall();
         }
     }
 });

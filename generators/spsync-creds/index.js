@@ -36,6 +36,13 @@ module.exports = generators.Base.extend({
             required: true
         });
         
+        this.option('skipInstall', {
+            type: Boolean,
+            required: false,
+            defaults: false,
+            desc: 'Skip running NPM package manager at the end.'
+        });
+        
         this.option('download', {
             type: Boolean,
             desc: 'Download files after install?',
@@ -108,6 +115,9 @@ module.exports = generators.Base.extend({
                 if (!configJson['site']) {
                     configJson['site'] = this.genConfig.site;
                 }
+                if (!configJson['skipInstall']) {
+                    configJson['skipInstall'] = this.genConfig.skipInstall;
+                }
                 if (!configJson['location']) {
                     configJson['location'] = "_catalogs/masterpage/" + this.genConfig.projectInternalName;
                 }
@@ -123,8 +133,19 @@ module.exports = generators.Base.extend({
     
     install: function() {
         // Run npm installer?
-        if (this.genConfig['download']) {
-            this.spawnCommand('gulp', ['download']);
+        if (!this.genConfig['skipInstall']) {
+            this.npmInstall("", () => {
+
+                // Run gulp download
+                if (this.genConfig['download']) {
+                    this.spawnCommand('gulp', ['download']);
+                }
+            })
+        } else {
+            // Run gulp download
+            if (this.genConfig['download']) {
+                this.spawnCommand('gulp', ['download']);
+            }
         }
     }
 });

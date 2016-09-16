@@ -38,7 +38,7 @@ module.exports = generators.Base.extend({
             required: true
         });
         
-        this.option('skip-install', {
+        this.option('skipInstall', {
             type: Boolean,
             required: false,
             defaults: false,
@@ -81,7 +81,7 @@ module.exports = generators.Base.extend({
                     type: 'confirm'
                 },
                 {
-                    name: 'skip-install',
+                    name: 'skipInstall',
                     message: 'Skip NPM install at the end?',
                     default: false,
                     when: this.options.name === undefined,
@@ -141,7 +141,8 @@ module.exports = generators.Base.extend({
                         options: {
                             name: this.genConfig.name,
                             projectInternalName: this.genConfig.projectInternalName,
-                            site: this.genConfig.site
+                            site: this.genConfig.site,
+                            skipInstall: this.genConfig.skipInstall
                         }
                     }, {
                         local: require.resolve('../spsync')
@@ -152,7 +153,8 @@ module.exports = generators.Base.extend({
                         options: {
                             name: this.genConfig.name,
                             projectInternalName: this.genConfig.projectInternalName,
-                            site: this.genConfig.site
+                            site: this.genConfig.site,
+                            skipInstall: this.genConfig.skipInstall
                         }
                     }, {
                         local: require.resolve('../spsync-creds')
@@ -184,9 +186,6 @@ module.exports = generators.Base.extend({
     },
     
     install: function() {
-        // Run npm installer?
-        if (!this.genConfig['skip-install']) {
-            this.npmInstall();
-        }
+        // Nothing to do
     }
 });
