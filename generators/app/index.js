@@ -1,7 +1,6 @@
 var generators = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
-var extend = require('deep-extend');
 var mkdirp = require('mkdirp');
 var inquirer = require('inquirer');
 var updateNotifier = require('update-notifier');
@@ -110,8 +109,8 @@ module.exports = generators.Base.extend({
             ];
 
             inquirer.prompt(prompts).then(function(responses) {
-                this.genConfig = extend(this.genConfig, this.options);
-                this.genConfig = extend(this.genConfig, responses);
+                this.genConfig = Object.assign({}, this.genConfig, this.options, responses);
+
                 done();
             }.bind(this));
         }
